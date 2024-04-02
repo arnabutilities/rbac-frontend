@@ -1,26 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { ThemeProvider } from "@mui/material/styles";
+import { MyGlobalContext } from "./contexts/Global";
+import { Light } from "./themes/Light";
+import { Dark } from "./themes/Dark";
+import BasicGridLayout from "./components/layout";
 
+// Wrap the app with the ThemeProvider component
 function App() {
+  const [themeName, setThemeName] = useState<string>("dark");
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <MyGlobalContext.Provider value={{ themeName, setThemeName }}>
+      <ThemeProvider theme={themeName === "Light" ? Light : Dark}>
+      <BasicGridLayout></BasicGridLayout>
+
+      </ThemeProvider>
+    </MyGlobalContext.Provider>
   );
 }
+
+
 
 export default App;
